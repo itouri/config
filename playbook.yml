@@ -1,0 +1,48 @@
+- hosts: all
+  become: yes
+  vars:
+    user: vagrat #TODO
+  tasks: 
+    - name: Set timezone
+      timezone: name=Asia/Tokyo
+
+    - name: Install packages
+      apt: name={{item}} state=present update_cache=yes
+      with_items:
+        - fish
+        - docker
+        - emacs
+        - vim
+        - git
+        - wget
+        - curl
+        - tig
+        - python3
+        
+    - name: Execute git clone dotfiles
+      become_user: '{{user}}'
+      git: repo=https://github.com/itouri/dotfiles.git dest=/home/{{user}}/dotfiles accept_hostkey=yes
+
+    - name: Setup dotfiles
+      become_user: '{{user}}'
+      command: bash setup.sh chdir=/home/{{user}}/dotfiles
+    
+    - name: Execute git clone goenv
+      become_user: '{{user}}'
+      git: repo=https://github.com/syndbg/goenv.git dest=/home/{{user}}/.goenv accept_hostkey=yes
+
+    - name: Install fisherman
+      shell: curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+
+    - name: Clone fzf
+      git:
+        repo: https://github.com/junegunn/fzf.git
+        dest: ~/.fzf
+        depth: 1
+
+    - name: Install fzf
+      shell: ~/.fzf/install --all
+
+    - name: Install vim bandle
+      shell: vim -c "BundleInstall" -c "q" -c "q"
+      
