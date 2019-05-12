@@ -1,7 +1,7 @@
 - hosts: all
   become: yes
   vars:
-    user: vagrat #TODO
+    user: vagrant #TODO
   tasks: 
     - name: Set timezone
       timezone: name=Asia/Tokyo
@@ -37,12 +37,14 @@
     - name: Clone fzf
       git:
         repo: https://github.com/junegunn/fzf.git
-        dest: ~/.fzf
-        depth: 1
+        dest: /home/{{user}}/.fzf
 
     - name: Install fzf
-      shell: ~/.fzf/install --all
+      shell: /home/{{user}}/.fzf/install --all && source /home/{{user}}/.bashrc
 
     - name: Install vim bandle
       shell: vim -c "BundleInstall" -c "q" -c "q"
+
+    - name: Install fisher plugin
+      shell: fish -c "fisher add jethrokuan/z" && fish -c "fisher add decors/fish-ghq"
       
