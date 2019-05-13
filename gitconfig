@@ -1,0 +1,14 @@
+[alias]
+    s = status
+    ss = status -ss
+    co = checkout
+    cm = commit -m
+    b = branch
+    g = grep
+    d = diff
+    a = add
+    l = log
+    lg = log --graph
+
+[ghq]
+    root = ~/src

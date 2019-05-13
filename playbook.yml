@@ -1,8 +1,8 @@
 - hosts: all
   become: yes
   vars:
-    user: vagrant #TODO
-  tasks: 
+    user: akiyama-k
+  tasks:   
     - name: Set timezone
       timezone: name=Asia/Tokyo
 
@@ -18,6 +18,7 @@
         - curl
         - tig
         - python3
+        - fonts-powerline
         
     - name: Execute git clone dotfiles
       become_user: '{{user}}'
@@ -27,9 +28,9 @@
       become_user: '{{user}}'
       command: bash setup.sh chdir=/home/{{user}}/dotfiles
     
-    - name: Execute git clone goenv
-      become_user: '{{user}}'
-      git: repo=https://github.com/syndbg/goenv.git dest=/home/{{user}}/.goenv accept_hostkey=yes
+    # - name: Execute git clone goenv
+    #   become_user: '{{user}}'
+    #   git: repo=https://github.com/syndbg/goenv.git dest=/home/{{user}}/.goenv accept_hostkey=yes
 
     - name: Install fisherman
       shell: curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
@@ -40,11 +41,32 @@
         dest: /home/{{user}}/.fzf
 
     - name: Install fzf
-      shell: /home/{{user}}/.fzf/install --all && source /home/{{user}}/.bashrc
+      shell: /home/{{user}}/.fzf/install --all
+
+    - name: clone vim bundle
+      git: repo=https://github.com/VundleVim/Vundle.vim.git dest=/home/{{user}}/.vim/bundle/Vundle.vim
 
     - name: Install vim bandle
-      shell: vim -c "BundleInstall" -c "q" -c "q"
+      shell: vim +PluginInstall +qall
 
+    #TODO pip install
+
+    - name: go gets
+      shell: go get github.com/motemen/ghq
+
+    - name: copy config.fish
+      shell: cp config.fish /home/{{user}}/.config/fish
+
+    #TODO fool
     - name: Install fisher plugin
-      shell: fish -c "fisher add jethrokuan/z" && fish -c "fisher add decors/fish-ghq"
-      
+      shell: fish -c "fisher add jethrokuan/z" && fish -c "fisher add decors/fish-ghq" && fish -c "fisher add oh-my-fish/theme-bobthefish"
+
+    - name: Clone powerline fonts
+      git: repo=https://github.com/powerline/fonts.git dest=/home/{{user}}/fonts
+
+    - name: Install powerline fonts
+      shell: /home/{{user}}/fonts/install.sh && rm -rf /home/{{user}}/fonts
+
+    # - name: source bashrc
+    #   shell: source /home/{{user}}/.bashrc
+    
