@@ -3,5 +3,5 @@ alias g='git'
 
 # cd の後に ls
 function cd
-    buildin cd $argv; and ls
+    builtin cd $argv; and ls
 end
