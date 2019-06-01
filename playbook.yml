@@ -2,7 +2,7 @@
   become: yes
   vars:
     #TODO
-    user: akiyama-k
+    user: vagrant
   tasks:   
     - name: Set timezone
       timezone: name=Asia/Tokyo
@@ -54,14 +54,22 @@
     - name: Install powerline fonts
       shell: /home/{{user}}/fonts/install.sh && rm -rf /home/{{user}}/fonts
 
+    - name: Create fisherman directory
+      file:
+        path: /home/{{user}}/.config/fish/functions
+        owner: vagrant
+        group: vagrant
+        mode: 0755
+        state: directory
+
     - name: Install fisherman
       get_url:
         url: https://git.io/fisher
         dest: /home/{{user}}/.config/fish/functions/fisher.fish
         
     #TODO fool
-    - name: Install fisher plugin
-      shell: fish -c "fisher add jethrokuan/z" && fish -c "fisher add decors/fish-ghq" && fish -c "fisher add oh-my-fish/theme-bobthefish"
+    #- name: Install fisher plugin
+    #  shell: fish -c "fisher add jethrokuan/z" && fish -c "fisher add decors/fish-ghq" && fish -c "fisher add oh-my-fish/theme-bobthefish"
 
     - name: copy config.fish
       copy:
