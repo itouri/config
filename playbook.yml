@@ -6,7 +6,7 @@
     - name: Set timezone
       timezone: name=Asia/Tokyo
 
-    - name: Install packages
+    - name: Install apt packages
       apt: name={{item}} state=present update_cache=yes
       with_items:
         - fish
@@ -19,10 +19,11 @@
         - tig
         - python3
         - fonts-powerline
-        
-    - name: Execute git clone dotfiles
-      become_user: '{{user}}'
-      git: repo=https://github.com/itouri/dotfiles.git dest=/home/{{user}}/dotfiles accept_hostkey=yes
+
+    - name: Install snap packages
+      snap:
+        name: go
+        classic: yes
 
     - name: Setup dotfiles
       become_user: '{{user}}'
@@ -50,6 +51,9 @@
       shell: vim +PluginInstall +qall
 
     #TODO pip install
+
+    - name: export gopath
+      shell: export GOPATH=/home/{{user}}/go
 
     - name: go gets
       shell: go get github.com/motemen/ghq

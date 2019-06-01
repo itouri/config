@@ -135,10 +135,7 @@ unset __conda_setup
 alias em="emacs"
 alias ain="sudo apt -y install"
 
-#export GOENV_ROOT=$HOME/.goenv
-#export PATH=$GOENV_ROOT/bin:$PATH
-#eval "$(goenv init -)"
-
+export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH
 
 exec fish

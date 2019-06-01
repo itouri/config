@@ -1,4 +1,7 @@
 [alias]
+    p = pull
+    st = stash save
+    sa = stash apply
     s = status
     ss = status -ss
     co = checkout
