@@ -58,3 +58,13 @@
 
     - name: Install powerline fonts
       shell: /home/{{user}}/fonts/install.sh && rm -rf /home/{{user}}/fonts
+
+    - name: Install fisherman
+      shell: curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+
+    #TODO fool
+    - name: Install fisher plugin
+      shell: fish -c "fisher add jethrokuan/z" && fish -c "fisher add decors/fish-ghq" && fish -c "fisher add oh-my-fish/theme-bobthefish"
+
+    - name: copy config.fish
+      shell: cp config.fish /home/{{user}}/.config/fish
