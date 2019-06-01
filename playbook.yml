@@ -2,7 +2,7 @@
   become: yes
   vars:
     #TODO
-    user: vagrant
+    user: lookup("env", "USER")
   tasks:   
     - name: Set timezone
       timezone: name=Asia/Tokyo
@@ -35,7 +35,9 @@
       shell: /home/{{user}}/.fzf/install --all
 
     - name: clone vim bundle
-      git: repo=https://github.com/VundleVim/Vundle.vim.git dest=/home/{{user}}/.vim/bundle/Vundle.vim
+      git:
+        repo: https://github.com/VundleVim/Vundle.vim.git
+        dest: /home/{{user}}/.vim/bundle/Vundle.vim
 
     - name: Install vim bandle
       shell: vim +PluginInstall +qall
@@ -49,7 +51,9 @@
       shell: go get github.com/motemen/ghq
 
     - name: Clone powerline fonts
-      git: repo=https://github.com/powerline/fonts.git dest=/home/{{user}}/fonts
+      git:
+        repo: https://github.com/powerline/fonts.git
+        dest: /home/{{user}}/fonts
 
     - name: Install powerline fonts
       shell: /home/{{user}}/fonts/install.sh && rm -rf /home/{{user}}/fonts
@@ -57,8 +61,8 @@
     - name: Create fisherman directory
       file:
         path: /home/{{user}}/.config/fish/functions
-        owner: vagrant
-        group: vagrant
+        owner: '{{user}}'
+        group: '{{user}}'
         mode: 0755
         state: directory
 
