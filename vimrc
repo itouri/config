@@ -15,6 +15,14 @@ Plugin 'prabirshrestha/vim-lsp'
 Plugin 'prabirshrestha/asyncomplete.vim'
 Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 
+" powerline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" nerdtree
+Plugin 'scrooloose/nerdtree'
+map <C-e> :NERDTreeToggle<CR>
+
 " golsp の設定
 let g:lsp_diagnostics_enabled = 0
 " debug

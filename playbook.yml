@@ -69,4 +69,3 @@
 
     # - name: source bashrc
     #   shell: source /home/{{user}}/.bashrc
-    
