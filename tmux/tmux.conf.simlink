@@ -17,4 +17,3 @@ bind v split-window -v
 # ペイン間の同時操作
 bind e setw synchronize-panes on
 bind E setw synchronize-panes off
-

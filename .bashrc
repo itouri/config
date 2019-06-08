@@ -116,26 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/akiyama-k/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/akiyama-k/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/akiyama-k/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/akiyama-k/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# added
-alias em="emacs"
-alias ain="sudo apt -y install"
-
-export GOPATH=~/go
+## env
+export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-
-exec fish
