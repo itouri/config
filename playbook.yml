@@ -21,6 +21,7 @@
         - python3
         - fonts-powerline
         - golang-go
+        - peco
 
     - name: Setup dotfiles
       become_user: '{{user}}'
