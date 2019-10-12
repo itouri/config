@@ -235,6 +235,21 @@ bindkey '^g'   peco-ghq            # C-g
 fi # if [ -x "`which peco`" ]; then
 
 
+#------------------------------------------------------------------------
+# 空 enter で ls
+# https://kei-q.hatenadiary.org/entry/20110406/1302091565
+#------------------------------------------------------------------------
+alls() {
+  zle accept-line
+  if [[ -z "$BUFFER" ]]; then
+    echo ''
+    ls
+  fi
+}
+zle -N alls
+bindkey "\C-m" alls
+
+
 ### alias
 alias g='git'
 alias la='ls -la'
