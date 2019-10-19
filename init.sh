@@ -1,8 +1,37 @@
+#!/bin/bash
+
+packagelist=(
+    "vim"
+    "git"
+    "wget"
+    "curl"
+    "tig"
+    "python3"
+    "golang-go"
+    "peco"
+    "zsh"
+)
+
+echo "--- update and upgrade ---"
 sudo apt -y update
-sudo apt -y install software-properties-common
-sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo add-apt-repository --yes --update ppa:longsleep/golang-backports
-sudo apt -y install ansible
-ansible-playbook -i localhost, -c local playbook.yml
-fish -c "fisher add jethrokuan/z" && fish -c "fisher add decors/fish-ghq" && fish -c "fisher add oh-my-fish/theme-bobthefish"
-source ~/.bashrc
+sudo apt -y upgrade
+
+echo "--- start apt install ---"
+for list in ${packagelist[@]}; do
+    sudo apt -y install ${list}
+done
+
+echo "--- install vim bundle ---"
+git clone https://github.com/VundleVim/Vundle.vim.git /home/$USER/.vim/bundle/Vundle.vim
+
+echo "--- install vim bundle ---"
+vim +PluginInstall +qall
+
+echo "--- install ghq ---"
+export GOPATH=/home/$USER/go
+go get github.com/motemen/ghq
+
+echo "--- install zplug ---"
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
+bash setup.sh
