@@ -12,6 +12,7 @@ zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "chrissicool/zsh-256color"
+zplug "agkozak/zsh-z"
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -91,8 +92,6 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 # Function : fuzzy folder search
 # url : https://github.com/sjl/z-zsh
 # ------------------------------------------------------------------------
-#? どうやらインストールはこれで良いらしい
-. zsh/z-zsh/z.sh
 function precmd() {
     z --add "$(pwd -P)"
 }
@@ -219,6 +218,18 @@ docker_peco_images() {
 alias dpc='docker_peco_containers'
 alias dpi='docker_peco_images'
 fi # if [ -x "`which docker`" ]; then
+
+
+#------------------------------------------------------------------------
+# kubectl zsh auto-completion
+# https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-zsh/
+#------------------------------------------------------------------------
+# install
+if [ -x "`which kubectl`" ]; then
+  source <(kubectl completion zsh)
+  alias k=kubectl
+fi # if [ -x "`which kubectl`" ]; then
+
 
 ################
 # key bindings

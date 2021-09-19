@@ -138,4 +138,4 @@ alias ain="sudo apt -y install"
 export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH
 
-exec fish
+exec zsh

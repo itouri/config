@@ -10,6 +10,7 @@ packagelist=(
     "golang-go"
     "peco"
     "zsh"
+    "docker"
 )
 
 echo "--- update and upgrade ---"
